@@ -1,0 +1,2 @@
+Smart Car Rental Management System is a mobile application that was made to help car rental owners in managing their rental business through features such as car management, schedule management, customer management, and cost management.
+This application uses flutter for development, allowing it to be usable in more than one type of device. It also uses firebase to store application data, allowing frequent data transfer from the application and into the application.
