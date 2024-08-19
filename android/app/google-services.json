@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "574259181819",
+    "firebase_url": "https://screms-application-default-rtdb.firebaseio.com",
+    "project_id": "screms-application",
+    "storage_bucket": "screms-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574259181819:android:e288df2184a24380e7985e",
+        "android_client_info": {
+          "package_name": "com.example.screms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574259181819-os33p3plhtrau7lrmh3f11oq3eh05nru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ-O0jT6bLW-u2ekWe_RE-EILO8Mkyd7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574259181819-os33p3plhtrau7lrmh3f11oq3eh05nru.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574259181819-6q62oq4fdekljthepa7rqhab4nnsphr7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.screms"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:574259181819:android:bc92db2603f0a8d8e7985e",
+        "android_client_info": {
+          "package_name": "com.screms.carrent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "574259181819-os33p3plhtrau7lrmh3f11oq3eh05nru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ-O0jT6bLW-u2ekWe_RE-EILO8Mkyd7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "574259181819-os33p3plhtrau7lrmh3f11oq3eh05nru.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "574259181819-6q62oq4fdekljthepa7rqhab4nnsphr7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.screms"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

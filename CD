@@ -1,0 +1,416 @@
+@startuml
+set namespaceSeparator ::
+
+class "car::calendar.dart::CalendarPage" {
+  +State<CalendarPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::calendar.dart::CalendarPage"
+
+class "car::calendar.dart::_CalendarPageState" {
+  +FirebaseController firebaseController
+  -DateTime _selectedDay
+  -DateTime _focusedDay
+  -TextEditingController _startDateController
+  -TextEditingController _endDateController
+  -GlobalKey<FormState> _formKey
+  -String? _selectedCarId
+  -String? _selectedCustomerId
+  -String? _selectedCarRentPrice
+  +List<Rental> rentals
+  +List<Car> car
+  -TextEditingController _destinationController
+  +bool isButtonVisible
+  -int _revenue
+  +void initState()
+  +void fetchRentalsAndUpdateState()
+  +Widget build()
+  -void _openFormBottomSheet()
+  -int? _calculateRevenue()
+  -void _selectDate()
+}
+
+"car::calendar.dart::_CalendarPageState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"car::calendar.dart::_CalendarPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"car::calendar.dart::_CalendarPageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "car::calendar.dart::_CalendarPageState"
+
+class "car::car_details.dart::CarDetails" {
+  +Car car
+  +State<CarDetails> createState()
+}
+
+"car::car_details.dart::CarDetails" o-- "car::models::car_model.dart::Car"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::car_details.dart::CarDetails"
+
+class "car::car_details.dart::_CarDetailsState" {
+  +Controller controller
+  +FirebaseStorage storage
+  +FirebaseController firebaseController
+  -GlobalKey<FormState> _formKey
+  -TextEditingController _carIdController
+  -TextEditingController _carTypeController
+  -TextEditingController _carNameController
+  -TextEditingController _licensePlateController
+  -TextEditingController _rentPriceController
+  -TextEditingController _imageController
+  -TextEditingController _barndController
+  -TextEditingController _locationController
+  -TextEditingController? _availabilityController
+  +Reference? upload
+  +String fileName
+  +XFile? imageFile
+  +Widget build()
+}
+
+"car::car_details.dart::_CarDetailsState" o-- "car::controller::controller.dart::Controller"
+"car::car_details.dart::_CarDetailsState" o-- "firebase_storage::firebase_storage.dart::FirebaseStorage"
+"car::car_details.dart::_CarDetailsState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"car::car_details.dart::_CarDetailsState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"car::car_details.dart::_CarDetailsState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"car::car_details.dart::_CarDetailsState" o-- "firebase_storage::firebase_storage.dart::Reference"
+"car::car_details.dart::_CarDetailsState" o-- "cross_file::src::types::interface.dart::XFile"
+"flutter::src::widgets::framework.dart::State" <|-- "car::car_details.dart::_CarDetailsState"
+
+class "car::car_details.dart::SpecCard" {
+  +String title
+  +String text
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "car::car_details.dart::SpecCard"
+
+class "car::controller::controller.dart::Controller" {
+  +RxInt currentIndex
+  +void changePage()
+}
+
+"car::controller::controller.dart::Controller" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "car::controller::controller.dart::Controller"
+
+class "car::costing.dart::CostingPage" {
+  +State<CostingPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::costing.dart::CostingPage"
+
+class "car::costing.dart::_CostingPageState" {
+  +DateTime selectedDate
+  -dynamic _selectMonthYear()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "car::costing.dart::_CostingPageState"
+
+class "car::costing.dart::CarList" {
+  +DateTime selectedDate
+  +FirebaseController controller
+  +Widget build()
+}
+
+"car::costing.dart::CarList" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "car::costing.dart::CarList"
+
+class "car::costing_details.dart::CostingDetails" {
+  +Car car
+  +String monthYear
+  +State<CostingDetails> createState()
+}
+
+"car::costing_details.dart::CostingDetails" o-- "car::models::car_model.dart::Car"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::costing_details.dart::CostingDetails"
+
+class "car::costing_details.dart::_CostingDetailsState" {
+  +FirebaseController firebaseController
+  +List<Rental> rentals
+  +int totalRevenue
+  +void initState()
+  +void fetchRentalsAndUpdateState()
+  +String formatNumberWithThousandSeparator()
+  +Widget build()
+}
+
+"car::costing_details.dart::_CostingDetailsState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"flutter::src::widgets::framework.dart::State" <|-- "car::costing_details.dart::_CostingDetailsState"
+
+class "car::firebase::firebase_controller.dart::FirebaseController" {
+  -FirebaseService _firebaseService
+  +Rx<Customer?> customer
+  +Rx<Car?> car
+  +Rx<List<Customer>> customers
+  +Rx<List<Rental>> rental
+  +Rx<RentalMonitoring?> rentalMonitoring
+  +RxBool isLoading
+  +RxInt totalRevenue
+  +dynamic fetchCars()
+  +dynamic fetchRentals()
+  +dynamic fetchAllRentals()
+  +dynamic fetchCustomers()
+  +dynamic addCar()
+  +dynamic updateCar()
+  +dynamic deleteCar()
+  +dynamic addRental()
+  +dynamic getRentalMonitoringData()
+  +dynamic addCustomer()
+  +dynamic updateCustomer()
+  +dynamic deleteCustomer()
+  +dynamic finishBooking()
+  +void onInit()
+}
+
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "car::firebase::firebase_service.dart::FirebaseService"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<Customer>"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<Car>"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<List<Customer>>"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<List<Rental>>"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::Rx<RentalMonitoring>"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxBool"
+"car::firebase::firebase_controller.dart::FirebaseController" o-- "get::get_rx::src::rx_types::rx_types.dart::RxInt"
+"get::get_state_manager::src::simple::get_controllers.dart::GetxController" <|-- "car::firebase::firebase_controller.dart::FirebaseController"
+
+class "car::firebase::firebase_service.dart::FirebaseService" {
+  -FirebaseFirestore _firestore
+  +dynamic fetchRentals()
+  +dynamic fetchAllRentals()
+  +DateTime parseDate()
+  +dynamic addRental()
+  +dynamic addCar()
+  +dynamic finishBooking()
+  +dynamic updateCar()
+  +dynamic deleteCar()
+  +dynamic deleteCustomer()
+  +dynamic getCars()
+  +dynamic getCustomers()
+  +dynamic getCustomer()
+  +dynamic addCustomer()
+  +dynamic updateCustomer()
+  +dynamic getCar()
+  +dynamic fetchRentalMonitoringData()
+}
+
+"car::firebase::firebase_service.dart::FirebaseService" o-- "cloud_firestore::cloud_firestore.dart::FirebaseFirestore"
+
+class "car::firebase_options.dart::DefaultFirebaseOptions" {
+  {static} +FirebaseOptions web
+  {static} +FirebaseOptions android
+  {static} +FirebaseOptions ios
+  {static} +FirebaseOptions macos
+  {static} +FirebaseOptions currentPlatform
+}
+
+"car::firebase_options.dart::DefaultFirebaseOptions" o-- "firebase_core_platform_interface::firebase_core_platform_interface.dart::FirebaseOptions"
+
+class "car::home.dart::HomePage" {
+  +State<HomePage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::home.dart::HomePage"
+
+class "car::home.dart::_HomePageState" {
+  +Controller controller
+  +FirebaseController firebaseController
+  -GlobalKey<FormState> _formKey
+  +FirebaseStorage storage
+  -TextEditingController _carTypeController
+  -TextEditingController _carNameController
+  -TextEditingController _licensePlateController
+  -TextEditingController _rentPriceController
+  -TextEditingController _barndController
+  -TextEditingController _locationController
+  +Reference? upload
+  +String fileName
+  +XFile? imageFile
+  +Widget build()
+}
+
+"car::home.dart::_HomePageState" o-- "car::controller::controller.dart::Controller"
+"car::home.dart::_HomePageState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"car::home.dart::_HomePageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"car::home.dart::_HomePageState" o-- "firebase_storage::firebase_storage.dart::FirebaseStorage"
+"car::home.dart::_HomePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"car::home.dart::_HomePageState" o-- "firebase_storage::firebase_storage.dart::Reference"
+"car::home.dart::_HomePageState" o-- "cross_file::src::types::interface.dart::XFile"
+"flutter::src::widgets::framework.dart::State" <|-- "car::home.dart::_HomePageState"
+
+class "car::home.dart::CarList" {
+  +FirebaseController controller
+  +Widget build()
+}
+
+"car::home.dart::CarList" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "car::home.dart::CarList"
+
+class "car::location.dart::LocationPage" {
+  +Car? car
+  +State<LocationPage> createState()
+}
+
+"car::location.dart::LocationPage" o-- "car::models::car_model.dart::Car"
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::location.dart::LocationPage"
+
+class "car::location.dart::_LocationPageState" {
+  +FirebaseController firebaseController
+  -CustomInfoWindowController _customInfoWindowController
+  +GoogleMapController? mapController
+  -Set<Marker> _markers
+  +void initState()
+  +dynamic initializeMap()
+  -dynamic _loadRentalMonitorings()
+  -void _updateMarkers()
+  -void _focusOnMarker()
+  +Widget build()
+  +void dispose()
+}
+
+"car::location.dart::_LocationPageState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"car::location.dart::_LocationPageState" o-- "custom_info_window::custom_info_window.dart::CustomInfoWindowController"
+"car::location.dart::_LocationPageState" o-- "google_maps_flutter::google_maps_flutter.dart::GoogleMapController"
+"flutter::src::widgets::framework.dart::State" <|-- "car::location.dart::_LocationPageState"
+
+class "car::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "car::main.dart::MyApp"
+
+class "car::models::car_model.dart::Customer" {
+  +String id
+  +String birthDate
+  +String customerName
+  +String emailAddress
+  +String nik
+  +String phoneNum
+}
+
+class "car::models::car_model.dart::Car" {
+  +String id
+  +String carType
+  +String carName
+  +String brand
+  +String location
+  +bool availability
+  +String imgUrl
+  +String licensePlate
+  +String rentPrice
+}
+
+class "car::models::car_model.dart::Rental" {
+  +String id
+  +String carId
+  +String customerId
+  +DateTime startDate
+  +DateTime endDate
+  +String destination
+  +int revenue
+  +String customerName
+  +String carName
+  +String toString()
+}
+
+class "car::models::car_model.dart::RentalMonitoring" {
+  +String id
+  +String? carId
+  +String customerId
+  +String latitude
+  +String longitude
+  +bool smokePresence
+  +int temperature
+  +Car? carDetails
+  +String? carName
+  +String? customerName
+}
+
+"car::models::car_model.dart::RentalMonitoring" o-- "car::models::car_model.dart::Car"
+
+class "car::profile.dart::ProfilePage" {
+  +State<ProfilePage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::profile.dart::ProfilePage"
+
+class "car::profile.dart::_ProfilePageState" {
+  +Controller controller
+  +FirebaseController firebaseController
+  -GlobalKey<FormState> _formKey
+  -TextEditingController _NameController
+  -TextEditingController _NIKController
+  -TextEditingController _PhoneNumberController
+  -TextEditingController _BirthDateController
+  -TextEditingController _EmailController
+  +Widget build()
+}
+
+"car::profile.dart::_ProfilePageState" o-- "car::controller::controller.dart::Controller"
+"car::profile.dart::_ProfilePageState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"car::profile.dart::_ProfilePageState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"car::profile.dart::_ProfilePageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "car::profile.dart::_ProfilePageState"
+
+class "car::profile.dart::CustomerList" {
+  +State<CustomerList> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::profile.dart::CustomerList"
+
+class "car::profile.dart::_CustomerListState" {
+  +Controller controller
+  +FirebaseController firebaseController
+  -GlobalKey<FormState> _formKey
+  -TextEditingController _customerIdController
+  -TextEditingController _NameController
+  -TextEditingController _NIKController
+  -TextEditingController _PhoneNumberController
+  -TextEditingController _BirthDateController
+  -TextEditingController _EmailController
+  +Widget build()
+}
+
+"car::profile.dart::_CustomerListState" o-- "car::controller::controller.dart::Controller"
+"car::profile.dart::_CustomerListState" o-- "car::firebase::firebase_controller.dart::FirebaseController"
+"car::profile.dart::_CustomerListState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"car::profile.dart::_CustomerListState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "car::profile.dart::_CustomerListState"
+
+class "car::profile.dart::SpecCard" {
+  +String title
+  +String text
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "car::profile.dart::SpecCard"
+
+class "car::root_page.dart::RootPage" {
+  +_RootPageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::root_page.dart::RootPage"
+
+class "car::root_page.dart::_RootPageState" {
+  -int _selectedIndex
+  -PageController _pageController
+  -void _onItemTapped()
+  +Widget build()
+  +void dispose()
+}
+
+"car::root_page.dart::_RootPageState" o-- "flutter::src::widgets::page_view.dart::PageController"
+"flutter::src::widgets::framework.dart::State" <|-- "car::root_page.dart::_RootPageState"
+
+class "car::test.dart::MyApp" {
+  +_MapScreenState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "car::test.dart::MyApp"
+
+class "car::test.dart::_MapScreenState" {
+  +GoogleMapController? mapController
+  +Set<Marker> markers
+  -void _onMapCreated()
+  +Widget build()
+}
+
+"car::test.dart::_MapScreenState" o-- "google_maps_flutter::google_maps_flutter.dart::GoogleMapController"
+"flutter::src::widgets::framework.dart::State" <|-- "car::test.dart::_MapScreenState"
+
+
+@enduml
